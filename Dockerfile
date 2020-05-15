@@ -1,20 +1,12 @@
-# Start from nothing
 FROM scratch
 
-# Extract runtime required files from build environment
-COPY /lib/x86_64-linux-gnu/ld-* /lib/
-COPY /lib/x86_64-linux-gnu/libc-* /lib/
-COPY /lib/x86_64-linux-gnu/libc.* /lib/
-COPY /lib/x86_64-linux-gnu/libdl* /lib/
-COPY /lib/x86_64-linux-gnu/libgcc* /lib/
-RUN /bin/ln -s /lib /lib64
-COPY /usr/lib/x86_64-linux-gnu/ada /usr/lib/x86_64-linux-gnu/ada
-COPY /usr/lib/x86_64-linux-gnu/libgnat-9.so.1 /usr/lib/x86_64-linux-gnu/
-
-# Container's program:
-ENTRYPOINT ["/main"]
-
-# This step is last because it will always change. Anything after this will not be cache-able.
-# Extract build result
-COPY /build/target/main /
+# Extract runtime required files from trescott/gnat-dev build environment
+COPY --from=trescott/gnat-dev /lib/x86_64-linux-gnu/ld-* /lib/
+COPY --from=trescott/gnat-dev /lib/x86_64-linux-gnu/libc-* /lib/
+COPY --from=trescott/gnat-dev /lib/x86_64-linux-gnu/libc.* /lib/
+COPY --from=trescott/gnat-dev /lib/x86_64-linux-gnu/libdl* /lib/
+COPY --from=trescott/gnat-dev /lib/x86_64-linux-gnu/libgcc* /lib/
+COPY --from=trescott/gnat-dev /lib/x86_64-linux-gnu/ld-linux* /lib64/
+COPY --from=trescott/gnat-dev /usr/lib/x86_64-linux-gnu/ada /usr/lib/x86_64-linux-gnu/ada
+COPY --from=trescott/gnat-dev /usr/lib/x86_64-linux-gnu/libgnat-9.so.1 /usr/lib/x86_64-linux-gnu/
 
