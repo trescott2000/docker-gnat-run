@@ -9,4 +9,5 @@ COPY --from=trescott/gnat-dev /lib/x86_64-linux-gnu/libgcc* /lib/
 COPY --from=trescott/gnat-dev /lib/x86_64-linux-gnu/ld-linux* /lib64/
 COPY --from=trescott/gnat-dev /usr/lib/x86_64-linux-gnu/ada /usr/lib/x86_64-linux-gnu/ada
 COPY --from=trescott/gnat-dev /usr/lib/x86_64-linux-gnu/libgnat-9.so.1 /usr/lib/x86_64-linux-gnu/
+COPY --from=trescott/gnat-dev /usr/lib/x86_64-linux-gnu/libanet.so.0.4.2 /usr/lib/x86_64-linux-gnu/
 
